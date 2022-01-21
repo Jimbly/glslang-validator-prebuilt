@@ -1,26 +1,38 @@
 {
-  "name": "glslang-validator-prebuilt",
-  "version": "0.0.6",
-  "description": "",
+  "name": "glslang-validator-prebuilt-predownloaded",
+  "version": "0.0.1",
+  "description": "glslangValidator prebuilt executables",
   "main": "index.js",
   "scripts": {
-    "build": "node build.js",
-    "postinstall": "node build.js",
+    "download": "node build.js win32 --clean && node build.js linux && node build.js darwin",
     "test": "node test.js"
   },
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "bin/glslangValidator.exe",
+    "bin/glslangValidator.linux",
+    "bin/glslangValidator.darwin"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Jimbly/glslang-validator-prebuilt.git"
+  },
   "keywords": [],
-  "author": "fand <fand.gmork@gmail.com> (https://gmork.in/)",
+  "author": "Jimb Esser (https://github.com/Jimbly)",
+  "contributors": [
+    "fand <fand.gmork@gmail.com> (https://gmork.in/)",
+    "Jimb Esser (https://github.com/Jimbly)"
+  ],
   "license": "MIT",
   "devDependencies": {
-    "rimraf": "^3.0.2",
-    "tape": "^5.0.1"
-  },
-  "types": "index.d.ts",
-  "dependencies": {
     "decompress": "^4.2.1",
     "download": "^8.0.0",
     "mkdirp": "^1.0.4",
     "pify": "^5.0.0",
-    "temp-dir": "^2.0.0"
-  }
+    "rimraf": "^3.0.2",
+    "temp-dir": "^2.0.0",
+    "minimist": "^1.2.5"
+  },
+  "types": "index.d.ts"
 }

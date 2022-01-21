@@ -3,20 +3,26 @@ var path = require("path");
 
 var platform = os.platform();
 if (platform !== "linux" && platform !== "darwin" && platform !== "win32") {
-  console.error("Unsupported platform:", platform);
+  console.error("glslang-validator-prebuilt: Unsupported platform:", platform);
   process.exit(1);
 }
 
 var arch = os.arch();
 if (arch !== "x64") {
-  console.error("Unsupported architecture:", arch);
+  console.error("glslang-validator-prebuilt: Unsupported architecture:", arch);
   process.exit(1);
 }
+
+var suffixes = {
+  darwin: ".darwin",
+  linux: ".linux",
+  win32: ".exe"
+};
 
 var glslangValidatorPath = path.join(
   __dirname,
   "bin",
-  platform === "win32" ? "glslangValidator.exe" : "glslangValidator"
+  "glslangValidator" + suffixes[platform]
 );
 
 module.exports = {

@@ -1,9 +1,8 @@
-var it = require('tape');
+var assert = require('assert');
 var fs = require('fs');
 var glslangValidator = require('.');
 
-it('should find glslangValidator.path', function(t) {
-  var stats = fs.statSync(glslangValidator.path);
-  t.ok(stats.isFile(glslangValidator.path));
-  t.end();
-});
+console.log(`Path = ${glslangValidator.path}`);
+
+var stats = fs.statSync(glslangValidator.path);
+assert(stats.isFile(glslangValidator.path));
