@@ -14,9 +14,11 @@ Returns the path of a glslangValidator binary on the local filesystem.
 
 ``` js
 var validator = require('glslang-validator-prebuilt-predownloaded');
-console.log(validator.path);
+console.log(validator.getPath());
 // /Users/foo/node_modules/glslang-validator-prebuilt/bin/darwin/glslangValidator
 ```
+
+Note: will throw an exception if on an unknown platform/architecture (new ARM64 Macs, which do not have a binary available)
 
 ## LICENSE
 

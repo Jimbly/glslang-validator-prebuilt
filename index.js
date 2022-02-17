@@ -1,17 +1,7 @@
 var os = require("os");
 var path = require("path");
 
-var platform = os.platform();
-if (platform !== "linux" && platform !== "darwin" && platform !== "win32") {
-  console.error("glslang-validator-prebuilt: Unsupported platform:", platform);
-  process.exit(1);
-}
-
-var arch = os.arch();
-if (arch !== "x64") {
-  console.error("glslang-validator-prebuilt: Unsupported architecture:", arch);
-  process.exit(1);
-}
+var glslangValidatorPath;
 
 var suffixes = {
   darwin: ".darwin",
@@ -19,12 +9,31 @@ var suffixes = {
   win32: ".exe"
 };
 
-var glslangValidatorPath = path.join(
-  __dirname,
-  "bin",
-  "glslangValidator" + suffixes[platform]
-);
+function getPath() {
+  if (!glslangValidatorPath) {
 
-module.exports = {
-  path: glslangValidatorPath
-};
+    var platform = os.platform();
+    if (!suffixes[platform]) {
+      throw new Error("glslang-validator-prebuilt: Unsupported platform: " + platform);
+    }
+
+    var arch = os.arch();
+    if (arch !== "x64") {
+      throw new Error("glslang-validator-prebuilt: Unsupported architecture: " + arch);
+    }
+
+    glslangValidatorPath = path.join(
+      __dirname,
+      "bin",
+      "glslangValidator" + suffixes[platform]
+    );
+  }
+
+  return glslangValidatorPath;
+}
+
+exports.getPath = getPath;
+
+Object.defineProperty(exports, 'path', {
+  get: getPath,
+});
